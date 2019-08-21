@@ -10,4 +10,11 @@ eureka:
     registry-fetch-interval-seconds: 5
 service-provider:
   ribbon:
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule # 随机 默认轮询
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+hystrix:
+  command:
+      default:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 6000 # 设置hystrix的超时时间为6000ms

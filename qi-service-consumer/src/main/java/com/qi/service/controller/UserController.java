@@ -2,6 +2,7 @@ package com.qi.service.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.qi.service.client.UserClient;
 import com.qi.service.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -26,12 +27,15 @@ import java.util.List;
 @RequestMapping("consumer/user")
 @DefaultProperties(defaultFallback = "fallBackMethod") // 指定一个类的全局熔断方法
 public class UserController {
-    @Autowired
-    private RestTemplate restTemplate;
+//    @Autowired
+//    private RestTemplate restTemplate;
 
     /**2**/
 //    @Autowired
 //    private DiscoveryClient discoveryClient; // eureka客户端，可以获取到eureka中服务的信息
+
+    @Autowired
+    private UserClient userClient;
 
     @GetMapping
     @ResponseBody
@@ -51,8 +55,16 @@ public class UserController {
 //        String baseUrl = "http://" + instance.getHost() + ":" + instance.getPort() + "/user/" + id;
         /**3**/
 //        修改调用方式，不再手动获取ip和端口，而是直接通过服务名称调用
-        String baseUrl = "http://service-provider/user/" + id;
-        User user = this.restTemplate.getForObject(baseUrl, User.class);
+        //服务熔断
+//        if(id == 29){
+//            throw new RuntimeException("太忙了");
+//        }
+
+//        String baseUrl = "http://service-provider/user/" + id;
+//        User user = this.restTemplate.getForObject(baseUrl, User.class);
+//        return user.toString();
+
+        User user = this.userClient.queryById(id);
         return user.toString();
     }
 

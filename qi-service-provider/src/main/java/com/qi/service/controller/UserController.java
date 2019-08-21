@@ -25,5 +25,12 @@ public class UserController {
     public User queryById(@PathVariable("id") Long id) {
         User user = this.userService.queryById(id);
         return user;
+        //触发熔断
+//        try {
+//            Thread.sleep(6000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return this.userService.queryById(id);
     }
 }
