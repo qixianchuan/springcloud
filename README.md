@@ -8,5 +8,7 @@
 - Hystix是Netflix开源的一个延迟和容错库，用于隔离访问远程服务、第三方库，防止出现级联失败。
 ## feign 伪装
 - https://github.com/OpenFeign/feign
+## Zuul 网关
+- https://github.com/Netflix/zuul
 
 

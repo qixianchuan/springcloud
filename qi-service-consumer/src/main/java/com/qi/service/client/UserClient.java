@@ -1,5 +1,6 @@
 package com.qi.service.client;
 
+import com.qi.service.configuration.FeignLogConfiguration;
 import com.qi.service.pojo.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @modified By：
  * @version: $version$
  */
-@FeignClient(value = "service-provider") // 标注该类是一个feign接口
+//@FeignClient(value = "service-provider") // 标注该类是一个feign接口
+@FeignClient(value = "service-provider", fallback = UserClientFallback.class, configuration = FeignLogConfiguration.class)
+// 标注该类是一个feign接口
 public interface UserClient {
     @GetMapping("user/{id}")
     User queryById(@PathVariable("id") Long id);

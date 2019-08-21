@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("consumer/user")
-@DefaultProperties(defaultFallback = "fallBackMethod") // 指定一个类的全局熔断方法
+//@DefaultProperties(defaultFallback = "fallBackMethod") // 指定一个类的全局熔断方法
 public class UserController {
 //    @Autowired
 //    private RestTemplate restTemplate;
@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping
     @ResponseBody
 //    @HystrixCommand(fallbackMethod = "queryUserByIdFallBack")
-    @HystrixCommand // 标记该方法需要熔断
+//    @HystrixCommand // 标记该方法需要熔断
     public String queryUserById(@RequestParam("id") Long id) {
         /**1**/
 //        User user = this.restTemplate.getForObject("http://localhost:8081/user/" + id, User.class);
@@ -74,13 +74,11 @@ public class UserController {
      * 熔断方法不需要参数
      * @return
      */
-    public String fallBackMethod(){
-        return "请求繁忙，请稍后再试！";
-    }
+//    public String fallBackMethod(){
+//        return "请求繁忙，请稍后再试！";
+//    }
 //    public String queryUserByIdFallBack(Long id){
 //        return "请求繁忙，请稍后再试！";
 //    }
-
-
 
 }
